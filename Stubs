@@ -1,0 +1,111 @@
+__                          __     _       _     ___           ___     _____      _       _       ____
+\ \          ____          / /    | |     | |   |   \         /   |   |  __ \    | |     | |     / ___|
+ \ \        / __ \        / /     | |     | |   | |\ \       / /| |   | |  \ \   | |     | |    / /
+  \ \      / /  \ \      / /      | |     | |   | | \ \     / / | |   | |__/ /   | |     | |    \ \___
+   \ \    / /    \ \    / /       | |     | |   | |  \ \   / /  | |   |  ___/    | |     | |     \___ \
+    \ \__/ /      \ \__/ /        \ \_____/ /   | |   \ \_/ /   | |   | |        \ \_____/ /     ___/ /
+     \____/        \____/          \_______/    |_|    \___/    |_|   |_|         \_______/     |____/  
+     
+     
+     
+  ==============================================================================================================================
+  Control(Richard):
+  ==============================================================================================================================
+  Keyboard/Mouse Input:
+  
+  Game Logic:
+  
+  ==============================================================================================================================
+  Entities(Aaron):
+  ==============================================================================================================================
+  Player:
+  
+  Wumpus:
+  
+  Wumpi:
+  
+  Items(for example weapon parts or powerups):
+  
+  Hazards(bats/pits)(needs seperate class?):
+  
+  ==============================================================================================================================
+  Environment(Alex):
+  ==============================================================================================================================
+  Map:
+  
+    Inputs:
+      - Nothing
+      
+    Outputs:
+      - 90 object boolean array of walls, true = door, false = wall
+      
+    Public methods:
+      - map.generate()
+        -Generates a new map
+      - map.getMap()
+        -Returns the bool array
+        
+    Private methods:
+      - map.getAdjRoom(int Door Number, int Room Number)
+        -Takes global wall number and room number and returns the room on the other side of the wall
+      - map.countDoors(int Room)
+        -Takes global room number and returns the number of doors in the room
+      - map.scramble()
+        -Returns numbers 1-30 in a random order to equalize map generation
+    
+    Debug methods:
+      - map.print()
+        -Prints the array in console
+      - map.doorsPerRoom()
+        -Returns true if every room has 1-3 doors, false otherwise
+      - map.roomsAccessible(int starting room)
+        -Returns true if all rooms are connected, false otherwise
+        -Recursive looping for each room it checks
+        -Currently not working
+    
+  
+  Trivia:
+    Inputs:
+      - Nothing
+      
+    Outputs:
+      -Trivia Questions as a String with answer included
+      
+    Public methods:
+      - trivia.getAvailNums(String question set)
+        -Returns the index number of all unused questions in the specified question set as an array
+      - trivia.getQuestion(int number)
+        -Returns the question with the specified index number
+      - trivia.getAnswers(int number)
+        -Returns the answer choices for the question with the specified index number
+      - trivia.giveAnswer(String answer)
+        -Returns true/false wether the answer is right or wrong
+        
+    Private methods:
+      - trivia.readQuestions(String file name)
+        -Reads the questions from the specified file and stores them in an array for use later
+      - trivia.switchFile(String file name)
+        -Switches to a different set of questions
+  
+  Scores:
+    Inputs:
+      -Scores as a String in "ABC123" format
+      
+    Outputs:
+      -Array of sorted high scores in "ABC123" format
+  
+  ==============================================================================================================================
+  Graphics(Coral):
+  ==============================================================================================================================
+  
+  HUD:
+    
+  Textures:
+  
+  
+  ==============================================================================================================================
+  Unassigned(Take if you want to do):
+  ==============================================================================================================================
+  
+  Line of sight(class or method?):
+
