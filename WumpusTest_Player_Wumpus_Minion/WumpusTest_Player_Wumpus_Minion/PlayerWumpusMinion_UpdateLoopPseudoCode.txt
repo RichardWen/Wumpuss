@@ -1,11 +1,13 @@
-Player.addTurn();
-Player.updateScore();
+Please note: in this pseudocode, "Player_", "Minion_", and "Wumpus_" are the names of instances of the Player, Minion, and Wumpus classes. A single Player instance and Wumpus instance should be stored by GameControl, and a list of Minion instances should also be stored.
 
-for(each Minion in Minions)
+Player_.addTurn();
+Player_.updateScore();
+
+for(each Minion_ in Minions)
 {
-	Minion.addTurn();
-	Minion.updateScore();
+	Minion_.addTurn();
+	Minion_.updateScore();
 }
 
-Wumpus.addTurn();
-Wumpus.updateState();
+Wumpus_.addTurn();
+Wumpus_.updateState();
