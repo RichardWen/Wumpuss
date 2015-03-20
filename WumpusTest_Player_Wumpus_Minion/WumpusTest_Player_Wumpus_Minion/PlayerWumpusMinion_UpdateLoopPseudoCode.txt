@@ -1,0 +1,11 @@
+Player.addTurn();
+Player.updateScore();
+
+for(each Minion in Minions)
+{
+	Minion.addTurn();
+	Minion.updateScore();
+}
+
+Wumpus.addTurn();
+Wumpus.updateState();
