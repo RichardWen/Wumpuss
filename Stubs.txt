@@ -66,34 +66,64 @@ __                          __     _       _     ___           ___     _____    
   Map:
   
     Inputs:
-      - Nothing
+      - Map size (rows and columns
+      - Maximum doors per room
       
     Outputs:
-      - 90 object boolean array of walls, true = door, false = wall
+      - 2 dimensional array of Room objects in (row, column) format
       
     Public methods:
       - map.generate()
-        -Generates a new map
+        - Generates a new map
+      - map.addDoors()
+        - Adds doors to the existing base map
       - map.getMap()
-        -Returns the bool array
+        - Returns the array of room objects
         
     Private methods:
-      - map.getAdjRoom(int Door Number, int Room Number)
-        -Takes global wall number and room number and returns the room on the other side of the wall
-      - map.countDoors(int Room)
-        -Takes global room number and returns the number of doors in the room
+      - map.fixDoors(int Door Number, int Room Number)
+        -Adds doors to make all rooms accessible
+      - map.unaccess()
+        -resets the access parameter for the checkaccessibility method
       - map.scramble()
-        -Returns numbers 1-30 in a random order to equalize map generation
+        -Returns numbers 1-roomNum in a random order to equalize map generation
     
     Debug methods:
       - map.print()
         -Prints the array in console
-      - map.doorsPerRoom()
+      - map.checkDoorsPerRoom()
         -Returns true if every room has 1-3 doors, false otherwise
-      - map.roomsAccessible(int starting room)
+      - map.checkAccessibility(int starting room)
         -Returns true if all rooms are connected, false otherwise
         -Recursive looping for each room it checks
-        -Currently not working
+    
+  Room:
+    Inputs:
+      - Room Number
+      
+    Outputs:
+      - N/A
+    
+    Public methods:
+      - setAdj(int direction, int adjNum)
+        -Sets the adjacent room for that direction
+      - getAdj(int direction)
+        - Returns the adjacent room in that direction
+      - getDoors()
+        - Returns the number of doors
+      - AddDoor(int direction)
+        - Adds a door in that direction
+      - checkDoor(int direction)
+        - True if a door is there, false if wall
+      - isAccess()
+        - Returns if the room is accessible
+      - setAccess(bool access)
+        - Sets the rooms accessibility parameter
+    
+    Private methods:
+    
+    
+    Debug methods:
     
   
   Trivia:
