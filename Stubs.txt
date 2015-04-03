@@ -1,0 +1,135 @@
+__                          __     _       _     ___           ___     _____      _       _       ____
+\ \          ____          / /    | |     | |   |   \         /   |   |  __ \    | |     | |     / ___|
+ \ \        / __ \        / /     | |     | |   | |\ \       / /| |   | |  \ \   | |     | |    / /
+  \ \      / /  \ \      / /      | |     | |   | | \ \     / / | |   | |__/ /   | |     | |    \ \___
+   \ \    / /    \ \    / /       | |     | |   | |  \ \   / /  | |   |  ___/    | |     | |     \___ \
+    \ \__/ /      \ \__/ /        \ \_____/ /   | |   \ \_/ /   | |   | |        \ \_____/ /     ___/ /
+     \____/        \____/          \_______/    |_|    \___/    |_|   |_|         \_______/     |____/  
+     
+     
+     
+  ==============================================================================================================================
+  Control(Richard):
+  ==============================================================================================================================
+  Keyboard/Mouse Input:
+  
+  Game Logic:
+  
+  ==============================================================================================================================
+  Entities(Aaron):
+  ==============================================================================================================================
+  Player:
+
+    Inputs:
+      - Starting Room Position (int)
+      - Starting direction (int)
+      - Starting number of arrows (int)
+      - Starting number of coins (int)
+      - an instance of the Map class (Map)
+      
+    Outputs:
+      - Nothing
+      
+    Public methods:
+      - Player.moveInDirection(int moveDirection)
+        - Attempts to move the player in a given direction, first checking if the move is possible in the Map class.
+      - Player.changeCoins(int newCoins)
+        - Adds the newCoins to the number of coins.
+      - Player.changeArrows(int newArrows)
+        - Adds the newArrows to the number of arrows.
+      - Player.addTurn()
+        - increments the player's turn and causes everything to update accordingly.
+      - Player.updateScore()
+        - causes the player to recalculate its score.
+      - Player.checkVisible(int checkPosition)
+        - checks if a certain position is visible to the player currently.
+        
+    Private methods:
+      - Player.updateVisibleList(int)
+        - checks all possibly visible locations and repopulates the list of visible locations.
+  
+  Wumpus:
+  
+  Wumpi:
+  
+  Items(for example weapon parts or powerups):
+    ** Can be implemented by adding attributes and methods to the Player class.
+    ** Not represented by an additional class, although can essentially be scaled as far as necessary.
+  
+  Hazards(bats/pits):
+    ** This is part of the Map class according to the Wumpus Spec.
+    ** We should consider moving it there or changing the specification.
+  
+  ==============================================================================================================================
+  Environment(Alex):
+  ==============================================================================================================================
+  Map:
+  
+    Inputs:
+      - Nothing
+      
+    Outputs:
+      - 90 object boolean array of walls, true = door, false = wall
+      
+    Public methods:
+      - map.generate()
+        -Generates a new map
+      - map.getMap()
+        -Returns the bool array
+        
+    Private methods:
+      - map.getAdjRoom(int Door Number, int Room Number)
+        -Takes global wall number and room number and returns the room on the other side of the wall
+      - map.countDoors(int Room)
+        -Takes global room number and returns the number of doors in the room
+      - map.scramble()
+        -Returns numbers 1-30 in a random order to equalize map generation
+    
+    Debug methods:
+      - map.print()
+        -Prints the array in console
+      - map.doorsPerRoom()
+        -Returns true if every room has 1-3 doors, false otherwise
+      - map.roomsAccessible(int starting room)
+        -Returns true if all rooms are connected, false otherwise
+        -Recursive looping for each room it checks
+        -Currently not working
+    
+  
+  Trivia:
+    Inputs:
+      - Nothing
+      
+    Outputs:
+      -Trivia Questions as a String with answer included
+      
+    Public methods:
+      - trivia.getAvailNums(String question set)
+        -Returns the index number of all unused questions in the specified question set as an array
+      - trivia.getQuestion(int number)
+        -Returns the question with the specified index number
+      - trivia.getAnswers(int number)
+        -Returns the answer choices for the question with the specified index number
+      - trivia.giveAnswer(String answer)
+        -Returns true/false wether the answer is right or wrong
+        
+    Private methods:
+      - trivia.readQuestions(String file name)
+        -Reads the questions from the specified file and stores them in an array for use later
+      - trivia.switchFile(String file name)
+        -Switches to a different set of questions
+  
+  Scores:
+    Inputs:
+      -Scores as a String in "ABC123" format
+      
+    Outputs:
+      -Array of sorted high scores in "ABC123" format
+  
+  ==============================================================================================================================
+  Graphics(Coral):
+  ==============================================================================================================================
+  
+  HUD:
+    
+  Textures:
