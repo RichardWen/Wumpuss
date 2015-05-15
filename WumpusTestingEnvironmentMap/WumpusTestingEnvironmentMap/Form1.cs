@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System;               
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -19,7 +19,7 @@ namespace WumpusTestingEnvironmentMap
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
 
-            Map mapInstance = new Map(5, 5, 6);
+            Map mapInstance = new Map(5, 5, 6, 6, 100);
             mapInstance.generate();
             mapInstance.addDoors();
             Room startingRoom = mapInstance.getMap()[2, 2];
@@ -31,13 +31,13 @@ namespace WumpusTestingEnvironmentMap
                     Start(mapInstance, startingRoom, playerInstance);
                     return true;
                 case Keys.Up:
-                    playerMove(playerInstance, 0, true);
+                    playerMove(playerInstance, mapInstance, 0, true);
                     return true;
                 case Keys.Right:
-                    playerMove(playerInstance, 1, false);
+                    playerMove(playerInstance, mapInstance, 1, false);
                     return true;
                 case Keys.Left:
-                    playerMove(playerInstance, -1, false);
+                    playerMove(playerInstance, mapInstance, -1, false);
                     return true;
             }
             return false;
@@ -80,12 +80,13 @@ namespace WumpusTestingEnvironmentMap
                 }
             }
         }
-        private void playerMove(Player playerInstance, int directionChange, bool isMoving)
+        private void playerMove(Player playerInstance, Map mapInstance, int directionChange, bool isMoving)
         {
             playerInstance.setDirection(playerInstance.getDirection() + directionChange);
             if (isMoving == true)
             {
                 playerInstance.moveInDirection(playerInstance.getDirection());
+                Start(mapInstance, playerInstance.getPosition(), playerInstance);
             }
         }
     
@@ -115,16 +116,18 @@ namespace WumpusTestingEnvironmentMap
         {
             // Call method in Map object to see if moving that direction is possible:
             Room newPosition = mapInstance.calculateMovement(position, moveDirection);
+            Console.WriteLine("Room:" + newPosition.number);
+            Console.WriteLine("Dir:" + moveDirection);
 
             // If possible, update the class:
-            if (newPosition != null)
+            if (!newPosition.nullRoom)
             {
                 position = newPosition;
                 direction = moveDirection;
             }
 
         }
-
+        
         public void changeCoins(int newCoins)
         {
             coins += newCoins;
@@ -333,15 +336,17 @@ namespace WumpusTestingEnvironmentMap
     }
        public class Map
     {
-        int count, rows, columns, doorsPerRoom;
+        int count, rows, columns, doorsPerRoom, doorsMinPerRoom, maxTries;
         Room[,] rooms;
-        public Map(int height, int length, int doors)
+        public Map(int height, int length, int doorsMin, int doorsMax, int tries)
         {
             count = length * height;
             rows = height;
             columns = length;
             rooms = new Room[rows, columns];
-            doorsPerRoom = doors;
+            doorsPerRoom = doorsMax;
+            doorsMinPerRoom = doorsMin;
+            maxTries = tries;
         }
 
         //======================================================================================================================
@@ -477,7 +482,7 @@ namespace WumpusTestingEnvironmentMap
             Random rand = new Random();
             for (int i = 0; i < order.Length; i++)
             {
-                int targetNum = rand.Next(1, doorsPerRoom + 1);  //Picks how many doors it wants the room to have
+                int targetNum = rand.Next(doorsMinPerRoom, doorsPerRoom + 1);  //Picks how many doors it wants the room to have
                 int rowNum = order[i] / columns;
                 int colNum = order[i] - rowNum * columns;
                 int tries = 0;
@@ -488,7 +493,7 @@ namespace WumpusTestingEnvironmentMap
                     int adjCol = adjNum % columns;
                     int adjRow = adjNum / columns;
                     tries++;
-                    if (tries > 3 && rooms[rowNum, colNum].getDoors() > 0)  //Checks if the room has too many doors
+                    if (tries > maxTries && rooms[rowNum, colNum].getDoors() > 0)  //Checks if the room has too many doors
                     {
                         targetNum = 0;                                      //If so, and it has tried 3 times, exits loop
                     }
@@ -626,7 +631,7 @@ namespace WumpusTestingEnvironmentMap
             }
             else
             {
-                Room nullRoom = new Room(false);
+                Room nullRoom = new Room(true);
                 return nullRoom;
             }
         }
