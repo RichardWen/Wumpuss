@@ -24,7 +24,8 @@ namespace WumpusTestingEnvironmentMap
             mapInstance.addDoors();
             Room startingRoom = mapInstance.getMap()[2, 2];
             Player playerInstance = new Player(startingRoom, 3, 0, 0, mapInstance);
-         
+            playerInstance.updateVisibleRooms();
+
             switch (keyData)
             {
                 case Keys.Space:
@@ -46,6 +47,7 @@ namespace WumpusTestingEnvironmentMap
         {   
             System.Drawing.SolidBrush myBrushBlue = new System.Drawing.SolidBrush(System.Drawing.Color.Blue);
             System.Drawing.SolidBrush myBrushRed = new System.Drawing.SolidBrush(System.Drawing.Color.Red);
+            System.Drawing.SolidBrush myBrushPurple = new System.Drawing.SolidBrush(System.Drawing.Color.MediumPurple);
             System.Drawing.Graphics formGraphics;
             formGraphics = this.CreateGraphics();
             for (int i = 0; i < mapInstance.getMap().GetLength(0); i++)
@@ -59,6 +61,10 @@ namespace WumpusTestingEnvironmentMap
                             formGraphics.FillRectangle(myBrushBlue, new Rectangle(i * 40 + 2, j * 40 + 2, 34, 34));
                 
                         }
+                        else if (playerInstance.checkVisible(playerInstance.getPosition()) == true)
+                        {
+                            formGraphics.FillRectangle(myBrushPurple, new Rectangle(i * 40 + 2, j * 40 + 2, 34, 34));
+                        }
                         else
                         {
                             formGraphics.FillRectangle(myBrushRed, new Rectangle(i * 40 + 2, j * 40 + 2, 34, 34));
@@ -70,6 +76,10 @@ namespace WumpusTestingEnvironmentMap
                         if (playerInstance.getPosition().Equals(mapInstance.getMap()[i, j]))
                         {
                             formGraphics.FillRectangle(myBrushBlue, new Rectangle(i * 40 + 2, j * 40 + 22, 34, 34));
+                        }
+                        else if (playerInstance.checkVisible(playerInstance.getPosition()) == true)
+                        {
+                            formGraphics.FillRectangle(myBrushPurple, new Rectangle(i * 40 + 2, j * 40 + 22, 34, 34));
                         }
                         else
                         {
@@ -172,7 +182,7 @@ namespace WumpusTestingEnvironmentMap
             return position;
         }
 
-        private void updateVisibleRooms()
+        public void updateVisibleRooms()
         {
             Room currentPosition = position;
             int direction1 = direction - 1;
